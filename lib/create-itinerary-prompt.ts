@@ -19,32 +19,15 @@ export const createItineraryPrompt = (requirements: ItineraryRequirements) => {
   return `Act as a travel expert for ${destinations} and provide a travel itinerary that fits to these requisites.
         - Trip duration: ${duration}
         - Activities to do: ${activities}
-        ${budget ? `- Budget: ${requirements.budget}` : null}
-        ${
-          months
-            ? `- Months: ${months} – if relevant, provide with the best time to visit`
-            : null
-        }
-        ${travellers ? `- Travellers: ${travellers}` : null}
-        ${
-          dietaryRestrictions
-            ? `- Dietary restrictions: ${dietaryRestrictions}`
-            : null
-        }
-        ${
-          otherConsiderations
-            ? `- Other considerations to take into account: ${otherConsiderations}`
-            : null
-        }
-
-        ${
-          inDepth
-            ? `Please do provide an in-depth itinerary, including:
+        ${budget ? `- Budget: ${budget}` : ''}
+        ${months ? `- Best time to visit: ${months}` : ''}
+        ${travellers ? `- Travellers: ${travellers}` : ''}
+        ${dietaryRestrictions ? `- Dietary restrictions: ${dietaryRestrictions}` : ''}
+        ${otherConsiderations ? `- Other considerations: ${otherConsiderations}` : ''}
+        - Include sustainable travel options and practices
+        ${inDepth ? `Please provide an in-depth itinerary, including:
         - Accommodation
         - Restaurants
-        - Other relevant information
-        `
-            : null
-        }
+        - Other relevant information` : ''}
     `;
-};
+}
