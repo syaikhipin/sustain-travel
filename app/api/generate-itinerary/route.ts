@@ -40,11 +40,13 @@ export async function POST(request: GenerateItineraryRequest) {
     }
 
     const prompt = createItineraryPrompt(itineraryRequirements);
+    //const model = process.env.OPENAI_MODEL ?? "gpt-3.5-turbo";
     const stream = await OpenAIStream({
-      model: "gpt-4-1106-preview",
+      model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
       stream: true,
     });
+
 
     return new Response(stream);
   } catch (error: any) {
