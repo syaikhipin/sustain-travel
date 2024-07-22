@@ -41,7 +41,7 @@ export async function POST(request: GenerateItineraryRequest) {
 
     const prompt = createItineraryPrompt(itineraryRequirements);
     const stream = await OpenAIStream({
-      model: "openchat/openchat-7b",
+      model: "meta-llama/llama-3-8b-instruct:free",
       messages: [{ role: "user", content: prompt }],
       stream: true,
     });
