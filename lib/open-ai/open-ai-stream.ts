@@ -6,7 +6,7 @@ export async function OpenAIStream(payload: CreateChatCompletionRequest) {
     const decoder = new TextDecoder();
 
     let counter = 0;
-    const baseUrl = process.env.OPENAI_BASE_URL ?? "https://api.openai.com";
+    const baseUrl = process.env.OPENAI_API_BASE ?? "https://api.openai.com";
     const res = await fetch(`${baseUrl}/v1/chat/completions`, {
     headers: {
         "Content-Type": "application/json",
@@ -14,7 +14,16 @@ export async function OpenAIStream(payload: CreateChatCompletionRequest) {
     },
     method: "POST",
     body: JSON.stringify(payload),
+}).catch(error => {
+    console.error("Fetch error:", error);
+    throw error;
 });
+
+    if (!res.ok) {
+        const errorData = await res.json();
+        console.error("API error:", errorData);
+        throw new Error(`API request failed: ${res.status}`);
+    }
 
     const stream = new ReadableStream({
         async start(controller) {
